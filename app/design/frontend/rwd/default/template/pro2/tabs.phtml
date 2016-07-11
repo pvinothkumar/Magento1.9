@@ -1,0 +1,17 @@
+<?php
+    if (Mage::registry('current_product')->getAssurantProductCollection()->count() == 0) return false; // make sure there is associated assurant products
+	$popupConfigValue = Mage::getStoreConfig('aintegration/touchpoints/interstitial', Mage::app()->getStore());
+?>
+<div id="plan-details-tab" class="protect-popup">
+    <?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_tab_content');?>
+	<section>
+        <div class="plan-content">
+            <?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_plan_basic');?>
+            <?php if($popupConfigValue): ?>
+			<ul class="no-bullet">
+				<li class="last"><a class="plan-details-fancybox fancybox" href="#benefits-popup" >See more plans</a></li>
+			</ul>
+            <?php endif; ?>
+		</div>
+	</section>
+</div>

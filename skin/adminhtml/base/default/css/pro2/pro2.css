@@ -1,0 +1,12 @@
+#wizard_process_output { height: 25px; display: table-cell; vertical-align: middle; margin-top: 5px; }
+#browser_window_content { overflow: hidden; }
+#wizard_step_content { height: 355px; position: relative; clear: both; overflow-y: hidden; }
+#wizard_step_content th { border-bottom: 1px dashed #CCD5E4 !important; text-align: center; }
+#wizard_step_content .note { font-style: italic; color: #666; font-size: 11px; margin: -5px 0 0 0; }
+#wizard_action_form { height: 240px; overflow: hidden; display: block; }
+.wizard-buttons { position: absolute; bottom: 0; width: 100%; background: #FAFAFA; }
+.wizard-buttons a { color: white; text-decoration: none; }
+.wizard-content h1 { float: right; margin-right: 10px; margin-bottom: 0; line-height: 50px; color: #006FB6; }
+.assurant-logo img { width: 50px; float: right; }
+.wizard-content table td, .wizard-content table td input { padding: 5px !important; width: 200px; }
+.token-input-dropdown-facebook { z-index: 9999; }

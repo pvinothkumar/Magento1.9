@@ -1,0 +1,69 @@
+<div id="plan-disclosures-content" style="display:none">
+    <?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_plan_disclosures');?>
+</div>
+<div id="plan-disclosures-content-popup" class="protect-popup" style="display:none">
+	<header class="protect-popup-header"><?php echo $this->__('Assurant Plan Disclosures') ?></header>
+	<section>
+        <div class="plan-logo">
+            <img src="<?php echo $this->getSkinUrl('pro2/images/xprotect_logo.png') ?>" alt="" />
+        </div>
+        <div class="plan-content">
+            <?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_plan_disclosures'); ?>
+        </div>
+        <div class="protect-link popup-links">
+            <a href="<?php echo Mage::getStoreConfig('aintegration/setting/termscondition')?>" target="_blank"><?php echo $this->__('Terms & Conditions') ?></a>
+            <?php echo Mage::getStoreConfig('aintegration/setting/faq')?>
+        </div>
+	</section>
+</div>
+<div id="plan-benefits-basic-content" class="protect-popup" style="display: none">
+	<header class="protect-popup-header"><?php echo $this->__('Assurant Product Protection Benefits') ?></header>
+	<section>
+        <div class="plan-logo">
+            <img src="<?php echo $this->getSkinUrl('pro2/images/xprotect_logo.png') ?>" alt="" />
+        </div>
+        <div class="plan-content">
+            <?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_plan_basic'); ?>
+            <div class="protect-link popup-links">
+                <a href="<?php echo Mage::getStoreConfig('aintegration/setting/termscondition')?>" target="_blank"><?php echo $this->__('Terms & Conditions') ?></a>
+                <a class="plan-disclosures-fancybox fancybox"><?php echo $this->__('Plan Disclosures') ?></a>
+                <?php echo Mage::getStoreConfig('aintegration/setting/faq')?>
+            </div>
+        </div>
+	</section>
+</div>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    load_plan_disclosures = function() {
+        jQuery('.plan-disclosures-fancybox').balloon({
+            position: "top",
+            tipSize: 0,
+            offsetY: 10,
+            contents: $('plan-disclosures-content').innerHTML,
+            css: {
+                maxWidth: "500px",
+                border: "solid 1px #F8F8F8",
+                borderRadius: "0",
+                boxShadow: "1px 1px 4px gray",
+                backgroundColor: "#F6F6F4",
+                opacity: "1",
+                textAlign: "left",
+                padding: '5px',
+            }
+        });
+    }
+    load_basic_benefits = function() {
+        jQuery('.cart-benefits-basic-fancybox').fancybox({
+            'transitionIn':'elastic',
+            'transitionOut':'elastic',
+            'speedIn':100,
+            'speedOut':100,
+        });
+    }
+    $(document).observe('dom:loaded', function() {
+        load_plan_disclosures();
+        load_basic_benefits();
+    });
+    //]]>
+</script>

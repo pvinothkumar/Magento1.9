@@ -1,0 +1,12 @@
+<div class="wizard-content">
+    <div class="title">
+        <?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_branding')?>
+    </div>
+
+    <div id="wizard_step_content">
+        <?php echo $this->getLayout()->createBlock('pro2/adminhtml_wizard')->setTemplate(Mage::getStoreConfig('aintegration/setting/wizard_step'))->toHtml()?>
+    </div>
+
+    <div id="wizard_process_output">
+    </div>
+</div>

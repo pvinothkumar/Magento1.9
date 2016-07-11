@@ -1,0 +1,39 @@
+<?php if ($this->canLoadWizard()):?>
+<div class="wrapper" style="display:none">
+    <div id="wizard_content">
+        <?php echo $this->getWizardContent(); ?>
+    </div>
+</div>
+
+<style type="text/css"> #loading-mask { z-index: 1100; } </style>
+<script type="text/javascript">
+var wizard_window;
+function openWizard() {
+    if ($('browser_window') && typeof(Windows) != 'undefined') {
+        Windows.focus('browser_window');
+        return;
+    }
+    wizard_window = Dialog.info(null, {
+        closable:true,
+        resizable:false,
+        draggable:true,
+        className:'magento',
+        windowClassName:'popup-window',
+        title: '<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_welcome_title')?>',
+        top:150,
+        width:600,
+        height:450,
+        zIndex:1000,
+        recenterAuto:false,
+        hideEffect:Element.hide,
+        showEffect:Element.show,
+        id:'browser_window',
+    });
+    wizard_window.setContent('wizard_content');
+}
+
+$(document).observe('dom:loaded', function(){
+    openWizard();
+});
+</script>
+<?php endif;?>

@@ -1,0 +1,46 @@
+<config>
+<!--  <tabs>
+    <attconfig translate="label" module="attachments">
+      <label>Attachments</label>
+      <sort_order>1000</sort_order>
+    </attconfig>
+  </tabs>-->
+  <sections>
+    <attachments translate="label" module="attachments">
+      <label>Attachments Options</label>
+      <tab>catalog</tab>
+      <!--<tab>attconfig</tab>-->
+      <frontend_type>text</frontend_type>
+      <sort_order>1000</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_store>0</show_in_store>
+      <show_in_website>0</show_in_website>
+      <groups>
+        <settings translate="label">
+          <label>Settings</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>1</sort_order>
+          <show_in_default>1</show_in_default>
+          <fields>
+            <att_orphan_days>
+              <label>Orphaned files (days)</label>
+              <frontend_type>text</frontend_type>
+              <comment><![CDATA[Max number of days to keep files uploaded and not attached to any orders.
+              Leave blank or zero for manual deletion only.]]></comment>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+            </att_orphan_days>
+            <att_old_days>
+              <label>Old files (days)</label>
+              <frontend_type>text</frontend_type>
+              <comment><![CDATA[Max number of days to keep any uploaded files.
+              Leave blank or zero for manual deletion only.]]></comment>
+              <sort_order>2</sort_order>
+              <show_in_default>1</show_in_default>
+            </att_old_days>
+          </fields>
+        </settings>
+      </groups>
+    </attachments>
+  </sections>
+</config>

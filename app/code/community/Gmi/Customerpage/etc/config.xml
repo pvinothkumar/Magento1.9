@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Gmi_Customerpage>
+			<version>0.1.0</version>
+		</Gmi_Customerpage>
+	</modules>
+    <frontend>
+        <layout>
+            <updates>
+                <gmi_customerpage module="Gmi_Customerpage">
+                    <file>gmi_customerpage.xml</file>
+                </gmi_customerpage>
+            </updates>
+        </layout>    
+        <routers>
+            <gmi_customerpage>
+                <use>standard</use>
+                <args>
+                    <module>Gmi_Customerpage</module>
+                    <frontName>gmi_customerpage</frontName>
+                </args>
+            </gmi_customerpage>
+        </routers>        
+    </frontend>
+    
+    <global>
+        <helpers>
+            <gmi_customerpage>
+                <class>Gmi_Customerpage_Helper</class>
+            </gmi_customerpage>
+        </helpers>        
+    </global>
+    
+</config>

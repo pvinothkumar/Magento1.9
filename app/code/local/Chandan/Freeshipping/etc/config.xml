@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+  <config>
+
+   <modules>
+    <Chandan_Freeshipping>
+     <version>0.1.0</version>
+    </Chandan_Freeshipping>
+   </modules>
+
+   <frontend>
+    <events>
+     <sales_quote_collect_totals_before>
+      <observers>
+       <Chandan_Freeshipping_Model_Observer>
+         <type>singleton</type>
+         <class>
+           Chandan_Freeshipping_Model_Observer
+         </class>
+         <method>applyfreeshipping</method>
+       </Chandan_Freeshipping_Model_Observer>
+      </observers>
+     </sales_quote_collect_totals_before>
+    </events>
+  </frontend>
+ </config> 

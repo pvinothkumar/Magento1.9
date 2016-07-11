@@ -1,0 +1,47 @@
+<!--CONTENT START HERE-->
+
+    <h4>
+		<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_welcome_header')?>
+    </h4>
+    <form id="wizard_action_form" method="post">
+        <table cellspacing="0">
+            <tr>
+                <td colspan="2">
+                    <br/> <br/> <br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Authentication Token</label>
+                </td>
+                <td>
+                    <input class="input-text required-entry" type="text" name="auth_token" value="<?php echo Mage::getStoreConfig('aintegration/setting/auth_token')?>" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br/>
+                    <p>
+						<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_welcome_instruction')?> 
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+<div class="wizard-buttons actions">
+    <button class="button" onclick="step('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/wizard/configconfirm')?>')">
+        Continue &rarr;
+    </button>
+    <button onclick="step('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/wizard/endwizard') ?>')">
+        End
+    </button>
+</div>
+<script type="text/javascript">
+jQuery('#wizard_action_form').mCustomScrollbar({theme: 'dark'})
+jQuery('#wizard_action_form').keydown(function(event){
+    if(event.keyCode == 13) { // prevent enter press, just allow click on buttons
+        event.preventDefault();
+        return false;
+    }});
+</script>

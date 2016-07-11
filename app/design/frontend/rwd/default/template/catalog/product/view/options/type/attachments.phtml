@@ -1,0 +1,28 @@
+<?php
+/**
+ * @author      Petar Dzhambazov
+ * @category    design
+ * @package     ZetaPrints_Attachments
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+$_option = $this->getOption();
+?>
+<dt class="zp-attachment"><label><?php echo  $this->htmlEscape($_option->getTitle()) ?>
+  <?php if ($_option->getIsRequire()): ?>
+  	<span class="required">&nbsp;*</span>
+	<?php endif; ?></label>
+    <?php echo $this->getFormatedPrice() ?></dt>
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+<?php echo $this->helper('attachments/upload')->uploadControl($_option);?>
+<?php if ($_option->getFileExtension()): ?>
+<p class="no-margin"><?php echo Mage::helper('catalog')->__('Allowed file extensions to upload')?>: <strong><?php echo $_option->getFileExtension() ?></strong></p>
+<?php endif; ?>
+<?php if ($_option->getImageSizeX() > 0): ?>
+<p class="no-margin"><?php echo Mage::helper('catalog')->__('Maximum image width')?>: <strong><?php echo $_option->getImageSizeX() ?> <?php echo Mage::helper('catalog')->__('px.')?></strong></p>
+<?php endif; ?>
+<?php if ($_option->getImageSizeY() > 0): ?>
+<p class="no-margin"><?php echo Mage::helper('catalog')->__('Maximum image height')?>: <strong><?php echo $_option->getImageSizeY() ?> <?php echo Mage::helper('catalog')->__('px.')?></strong></p>
+<?php endif; ?>
+</dd>

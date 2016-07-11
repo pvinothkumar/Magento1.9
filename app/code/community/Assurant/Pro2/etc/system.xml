@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <assurant translate="label" module="pro2">
+            <label>Assurant Product Protection</label>
+            <sort_order>300</sort_order>
+        </assurant>
+    </tabs>
+    <sections>
+        <aintegration  translate="label" module="pro2">                    
+            <label>Advanced Settings</label>
+            <tab>assurant</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>300</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>            
+            <groups>
+                <setting translate="label"> 
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <auth_token translate="label">
+                            <label>Authentication Token</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auth_token>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>enable/disable Assurant Extension</comment>
+                        </enabled>
+                        <environment translate="label">
+                            <label>Environment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>pro2/system_config_source_env</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </environment>
+                    </fields>
+                </setting>
+                <touchpoints translate="label"> 
+                    <label>Touch Points Visibility</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <cart translate="label">
+                            <label>Cart Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>enable/disable touch points in cart page</comment>
+                        </cart>
+                        <checkout translate="label">
+                            <label>Checkout review section</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>enable/disable touch points on checkout review section</comment>
+                        </checkout>
+                        <interstitial translate="label">
+                            <label>Interstitial</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>enable/disable touch points in Interstitial</comment>
+                        </interstitial>
+                        <product_page>
+                            <label>Product Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>enable/disable touch points on product page</comment>
+                        </product_page>
+                    </fields>
+                </touchpoints>
+            </groups>
+        </aintegration>
+        <activewizard  translate="label" module="pro2">                    
+            <label>Matching Wizard</label>
+            <tab>assurant</tab>
+            <frontend_type>text</frontend_type>
+            <action>adminhtml/system_config/edit/section/aintegration</action>
+            <sort_order>500</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>            
+            <groups>
+                <setting translate="label"> 
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <check translate="label">
+                            <label>Matching Wizard</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>pro2/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Start Matching Wizard</comment>
+                        </check>
+                    </fields>
+                </setting> 
+            </groups>
+        </activewizard>
+    </sections>
+</config>

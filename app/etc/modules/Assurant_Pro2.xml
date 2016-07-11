@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Assurant_Pro2>
+            <active>true</active>
+            <codePool>community</codePool>            
+            <depends>
+                <Mage_Cms />
+            </depends>
+            <version>1.0.0</version>
+        </Assurant_Pro2>
+    </modules>
+</config>

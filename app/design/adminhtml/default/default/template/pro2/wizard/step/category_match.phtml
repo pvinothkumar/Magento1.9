@@ -1,0 +1,89 @@
+<?php
+$collection = Mage::getModel('catalog/category')->getCollection()->addAttributeToSelect('*')->addIsActiveFilter();
+$categories = array();
+foreach ($collection as $c){
+    $categories[$c->getPath()] = array('id' => $c->getId(), 'name' => $this->escapeHtml($c->getName()), 'level' => str_repeat(".",$c->getLevel() - 1), 'children_count' => $c->getChildrenCount());
+}
+ksort($categories);
+?>
+<script type="text/javascript">
+var mcategories = [ <?php foreach ($categories as $c) { echo "{\"id\":\"{$c['id']}\", \"children_count\":\"{$c['children_count']}\", \"name\": \"{$c['level']}{$c['name']}\"},"; }?> ];
+jQuery(document).ready(function() {
+    jQuery('.category-lookup').tokenInput( mcategories , {
+        theme: 'facebook',
+        hintText: 'Type in Category Name',
+        searchText: 'Searching...',
+        resultsFormatter: function(item) { var weight=(item.name.match(/\./g) || []).length; var t = item.name.replace(/\./g, "&nbsp;&nbsp;&nbsp;&nbsp;"); weight = 3-weight > 1 ? 3-weight : 1; cursor_style = item.children_count > 0 ? 'cursor: not-allowed;' : ''; return '<li style="'+cursor_style+' font-weight:'+weight*300+'">'+t+'</li>' },
+        tokenFormatter: function(item) { return '<li><p>'+item.name.replace(/\./g, "")+'</p></li>'} }
+    );
+});
+</script>
+    <h4>
+		<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_match_header')?>
+	</h4>
+    <p class="note"><?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_match_note')?></p>
+    <form id="wizard_action_form" method="post">
+        <table cellspacing="0">
+            <colgroup>
+                <col style="width: 50%"/>
+                <col/>
+            </colgroup>
+            <tr>
+                <th>Assurant Product Protection Categories</th>
+                <th>Your Shop Categories </th>
+            </tr>
+            <?php foreach(Mage::getModel('pro2/acategory')->getCollection()->setOrder('name', 'asc') as $c): ?>
+            <tr>
+                <td>
+                    <label><?php echo $c->getName()?></label>
+                </td>
+                <td>
+                    <?php
+                        $matched_categories = explode(',', $c->getMatches());
+                        foreach ($matched_categories as $key => $mc) {
+                            if (empty($mc)) {
+                                unset($matched_categories[$key]);
+                            }
+                            else {
+                                $mc = Mage::getModel('catalog/category')->load($mc);
+                                $matched_categories[$key] = array('id' => $mc->getId(), 'name' => $mc->getName());
+                            }
+                        }
+                        $attr = "";
+                        if (count($matched_categories)) {
+                            $data_pre = json_encode(array_values($matched_categories));
+                            $attr = " data-pre='".$data_pre."'";
+                        }
+                    ?>
+                    <input type="text" class="category-lookup" name="matches[<?php echo $c->getId()?>]" <?php echo $attr?>/>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </form>
+
+<div class="wizard-buttons actions">
+    <button onclick="step('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/wizard/config') ?>')">
+        &larr; Go Back
+    </button>
+    <button onclick="step('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/wizard/confirmmatch') ?>')">
+        Match Products
+    </button>
+    <button onclick="step('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/wizard/endwizard') ?>')">
+        End
+    </button>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    $('wizard_process_output').update('<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_match_footer')?>');
+    if (wizard_window) {
+        wizard_window.setTitle('<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_match_title')?>');
+    }
+    jQuery('#wizard_action_form').mCustomScrollbar({theme: 'dark'})
+    jQuery('#wizard_action_form').keydown(function(event){ // prevent enter press, just allow click on buttons
+        if(event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+    }});
+});
+</script>

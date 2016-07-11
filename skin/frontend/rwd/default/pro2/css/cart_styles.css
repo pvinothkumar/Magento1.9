@@ -1,0 +1,37 @@
+.protect-popup { margin: 0 auto; max-width: 900px; }
+.protect-popup .protect-pricing {padding-top: 0;}
+.protect-popup header{background-color:rgb(230, 229, 228);font-size:20px;padding:15px;text-align:left;line-height: 20px;}
+.protect-popup section{width:100%;margin:0 auto;padding:15px 10px;}
+.protect-popup .plan-logo { float:left; width: 25%; padding:0 15px; text-align: center; }
+.protect-popup .plan-logo img { display: inline-block;  }
+.protect-popup .plan-content { float:left; width: 75%; padding:0 15px; text-align: left; margin-bottom: 30px;}
+.protect-popup .col-md-9.col-sm-9{font-size:14px;text-align:left}
+.protect-popup li{line-height:25px;position:relative;padding:0 10px}
+.protect-popup li::before{content:".";display:inline-block;font-weight:700;line-height:25px;margin-left:-1em;margin-top:0;position:absolute;top:-5px;width:1.2em}
+.protect-popup li.last::before{content:''}
+.protect-popup li.last{font-size:15px;margin-top:10px;text-decoration:underline}
+.protect-popup .plan-content > h1{color:#000;font-size:28px;line-height: 38px; margin-bottom:10px; text-transform: capitalize;}
+.protect-popup .plan-content > h1 *:after { display: inline-block;  }
+.protect-popup .plan-content h1 .price-box { display: inline-block; margin:0;  }
+.protect-popup :after { content: ''; display: table; clear: both; }
+.protect-popup .plan-content h1 .price-box .price { font-size:28px;line-height: 38px; color:#000;  }
+.protect-popup .plan-content > h1:nth-of-type(2){margin-top:15px}
+.protect-popup .plan-content ul { list-style: disc; }
+.protect-popup .row > div {text-align: center;}
+.protect-popup span, .protect-popup .row p, .protect-popup .row li{line-height: 25px}
+
+.checkout-cart-index a.fancybox-close{right:15px;top:15px}
+.checkout-cart-index a.fancybox-close{background:url('../images/close.png') no-repeat; width: 20px; height: 20px;}
+a.fancybox-close::before{content: '';}
+.fancybox-skin { padding: 0 !important; }
+.fancybox-opened .fancybox-skin {border-radius:5px;overflow:hidden;}
+
+.protect-link { clear: both; margin-top: 20px; }
+.protect-link > a{ color:#949393;font-size:14px;margin-right:20px;text-decoration:underline}
+.popup-links { width: 400px; height:30px; line-height: 40px; }
+.popup-links > a::after { display: inline-block; }
+.product-name { width: 70%; float: left; }
+
+.checkout-cart-index .s-warranty-heading  { display: none; }
+.checkout-cart-index .protect-popup li::before { display: none; }
+.protect-popup h5, .protect-popup h6 , .product-name .assurant-product-name { text-transform: capitalize; }

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Gmi_WysiwygFiles>
+      <active>true</active>
+      <codePool>local</codePool>
+    </Gmi_WysiwygFiles>
+  </modules>
+</config>

@@ -1,0 +1,15 @@
+<layout version="0.1.0">
+
+   <customer_accountpage_index translate="label">
+       <label>Custom Page</label>
+          <reference name="head">
+                 <action method="setTitle"><title>Custom Page</title></action> <!--Page Title-->
+         </reference>
+     <!-- Mage_Customer -->
+     <update handle="customer_account"/>
+      <reference name="my.account.wrapper">
+
+        <block type="exormedia/customer" name="exormedia" before="-" template="customer/custom_customer_page.phtml"/>
+    </reference>
+  </customer_accountpage_index>
+</layout>

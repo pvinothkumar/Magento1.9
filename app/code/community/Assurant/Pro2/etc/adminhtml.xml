@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <aintegration translate="title" module="pro2">
+                                        <title>Integration Section</title>
+                                        <sort_order>0</sort_order>
+                                    </aintegration>
+                                    <activewizard translate="title" module="pro2">
+                                        <title>Matching Wizard</title>
+                                        <sort_order>1</sort_order>
+                                    </activewizard>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

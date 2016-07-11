@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <!--GRID-->
+    <admin_pro2_adminhtml_aproduct_index>
+        <reference name="content">
+            <block type="pro2/adminhtml_aproduct" name="aproduct" />
+        </reference>
+    </admin_pro2_adminhtml_aproduct_index>
+    <admin_pro2_adminhtml_acategory_index>
+        <reference name="content">
+            <block type="pro2/adminhtml_acategory" name="acateory" />
+        </reference>
+    </admin_pro2_adminhtml_acategory_index>
+
+    <!--WIZARD-->
+    <default>
+        <reference name="notifications">
+            <block type="pro2/adminhtml_wizard" name="assurant_wizard_loader" as="assurant_wizard_loader" template="pro2/wizard/loader.phtml"></block>
+        </reference>
+        <reference name="head">
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_css</type><name>css/pro2/pro2.css</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_css</type><name>css/pro2/token-input.css</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_css</type><name>css/pro2/token-input-facebook.css</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_css</type><name>css/pro2/jquery.mCustomScrollbar.min.css</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_css</type><name>css/pro2/sweetalert.css</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_js</type><name>js/pro2/jquery.min.js</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_js</type><name>js/pro2/jquery.tokeninput.js</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_js</type><name>js/pro2/pro2.js</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_js</type><name>js/pro2/jquery.mCustomScrollbar.concat.min.js</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled"><type>skin_js</type><name>js/pro2/sweetalert.min.js</name><params/></action>
+            <action method="addItem" ifconfig="aintegration/setting/enabled">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss" ifconfig="aintegration/setting/enabled">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
+        </reference>
+    </default>
+
+    <!--NEW PRODUCT EDIT TAB-->
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <block type="pro2/adminhtml_catalog_product_edit_tab" name="assurant_product_tab"/>
+            <action method="addTab">
+                <name>Assurant Products</name>
+                <block>assurant_product_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    <adminhtml_catalog_product_assurant>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="pro2/adminhtml_catalog_product_edit_tab_assurant" name="catalog.product.edit.tab.assurant"/>
+            <block type="adminhtml/widget_grid_serializer" name="custom_grid_serializer">
+                <reference name="custom_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.assurant</grid_block_name>
+                        <data_callback>getSelectedAssurantProducts</data_callback>
+                        <hidden_input_name>links[assurant]</hidden_input_name>
+                        <reload_param_name>products_assurant</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_catalog_product_assurant>
+
+    <adminhtml_catalog_product_assurantgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="pro2/adminhtml_catalog_product_edit_tab_assurant" name="catalog.product.edit.tab.assurant"/>
+        </block>
+    </adminhtml_catalog_product_assurantgrid>
+
+</layout>

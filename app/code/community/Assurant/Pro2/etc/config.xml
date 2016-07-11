@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Assurant_Pro2>
+            <version>1.0.7</version>
+        </Assurant_Pro2>
+    </modules>
+    <global>
+        <helpers>
+            <pro2>
+                <class>Assurant_Pro2_Helper</class>
+            </pro2>
+        </helpers>
+        <blocks>
+            <pro2>
+                <class>Assurant_Pro2_Block</class>
+            </pro2>
+            <checkout>
+                <rewrite>
+                    <cart_item_renderer>Assurant_Pro2_Block_Checkout_Cart_Item_Renderer</cart_item_renderer>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <models>
+            <pro2>
+                <class>Assurant_Pro2_Model</class>
+                <resourceModel>pro2_mysql4</resourceModel>
+            </pro2>
+            <catalog>
+                <rewrite>
+                    <product>Assurant_Pro2_Model_Catalog_Product</product>
+                    <product_link>Assurant_Pro2_Model_Catalog_Product_Link</product_link>
+                </rewrite>
+            </catalog>
+            <sales>
+                <rewrite>
+                    <quote_item>Assurant_Pro2_Model_Quote_Item</quote_item>
+                </rewrite>
+            </sales>
+            <pro2_mysql4>
+                <class>Assurant_Pro2_Model_Mysql4</class>
+                <entities>		  
+                    <aproduct>
+                        <table>assurant_products</table>
+                    </aproduct>
+                    <amatchoverride>
+                        <table>assurant_match_overrides</table>
+                    </amatchoverride>
+                    <acategory>
+                        <table>assurant_categories</table>
+                    </acategory>
+                </entities>
+            </pro2_mysql4>
+        </models>
+        <resources>
+            <pro2_setup>
+                <setup>
+                    <module>Assurant_Pro2</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pro2_setup>
+            <pro2_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </pro2_write>
+            <pro2_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </pro2_read>
+        </resources>
+        <events>
+            <!--ASSURANT FRONTEND WIDGET-->
+            <checkout_type_onepage_save_order_after> 
+                <observers>
+                    <checkout_type_onepage_save_order_after_assurant_handler> 
+                        <type>model</type> 
+                        <class>pro2/newordertotalobserver</class> 
+                        <method>saveAssurantTotal</method>  
+                        <args></args> 
+                    </checkout_type_onepage_save_order_after_assurant_handler>
+                </observers>
+            </checkout_type_onepage_save_order_after>		
+            <checkout_type_multishipping_create_orders_single> 
+                <observers>		
+                    <checkout_type_multishipping_create_orders_single_assurant_handler> 
+                        <type>model</type> 
+                        <class>pro2/newordertotalobserver</class> 
+                        <method>saveAssurantTotalForMultishipping</method>  
+                        <args></args> 
+                    </checkout_type_multishipping_create_orders_single_assurant_handler>		
+                </observers>
+            </checkout_type_multishipping_create_orders_single>
+            <!--AUTO CORRECT PROTECTION PLAN-->
+            <sales_quote_address_save_before>
+                <observers>		
+                    <correct_plan_by_price> 
+                        <type>model</type> 
+                        <class>pro2/observer</class> 
+                        <method>correctAssurantPlan</method>  
+                        <args></args> 
+                    </correct_plan_by_price>
+                </observers>
+            </sales_quote_address_save_before>
+            <!--AUTO REMATCH IF THERE IS PRICE CHANGE-->
+            <catalog_product_save_after>
+                <observers>		
+                    <update_assurant_matches> 
+                        <type>model</type> 
+                        <class>pro2/observer</class> 
+                        <method>updateAssurantMatches</method>  
+                        <args></args> 
+                    </update_assurant_matches>
+                </observers>
+            </catalog_product_save_after>
+        </events>	
+        <sales>
+            <order_invoice>
+                <totals>				
+                    <assurant_total>
+                        <class>pro2/order_invoice_total_assurant</class>
+                        <after>subtotal,freeshipping,tax_subtotal,shipping</after>
+                        <before>grand_total</before>
+                    </assurant_total> 
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>				
+                    <assurant_total>
+                        <class>pro2/order_creditmemo_total_assurant</class>
+                        <after>subtotal,freeshipping,tax_subtotal,shipping</after>
+                        <before>grand_total</before>
+                    </assurant_total> 
+                </totals>
+            </order_creditmemo>
+        </sales>
+        <fieldsets>
+            <sales_convert_quote_item>
+                <assurant_item_id>
+                    <to_order_item>*</to_order_item>
+                </assurant_item_id>
+                <assurant_item_option_id>
+                    <to_order_item>*</to_order_item>
+                </assurant_item_option_id>
+            </sales_convert_quote_item>
+            <sales_convert_order_item>
+                <assurant_item_id>
+                    <to_quote_item>*</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+               </assurant_item_id>
+                <assurant_item_option_id>
+                    <to_quote_item>*</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_shipment_item>*</to_shipment_item>
+                    <to_cm_item>*</to_cm_item>
+               </assurant_item_option_id>
+            </sales_convert_order_item>
+        </fieldsets>
+    </global>
+    <admin>
+        <routers>
+            <admin_pro2>
+                <use>admin</use>
+                <args>
+                    <module>Assurant_Pro2</module>
+                    <frontName>admin_pro2</frontName>
+                </args>
+            </admin_pro2>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <modulename after="Mage_Adminhtml">Assurant_Pro2_Adminhtml</modulename>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <pro2 module="pro2">
+                <title>Assurant</title>
+                <sort_order>80</sort_order>
+                <children>
+                    <!--<acategory module="pro2">
+                        <title>Categories</title>
+                        <sort_order>0</sort_order>
+                        <action>admin_pro2/adminhtml_acategory</action>
+                    </acategory>-->
+                    <wizard module="pro2">
+                        <title>Matching Wizard</title>
+                        <sort_order>1</sort_order>
+                        <action>adminhtml/wizard/reinit</action>
+                    </wizard>
+                    <!--<aproduct module="pro2">
+                        <title>Products</title>
+                        <sort_order>2</sort_order>
+                        <action>admin_pro2/adminhtml_aproduct</action>
+                    </aproduct>-->
+                    <!--<report module="pro2">
+                        <title>Report</title>
+                        <sort_order>3</sort_order>
+                        <action>adminhtml/report_assurant/ordered</action>
+                    </report>-->
+                    <settings module="pro2">
+                        <title>Advanced Settings</title>
+                        <sort_order>4</sort_order>
+                        <action>adminhtml/system_config/edit/section/aintegration</action>
+                    </settings>
+                </children>
+            </pro2>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <pro2 translate="title" module="pro2">
+                            <title>Pro2</title>
+                            <sort_order>1000</sort_order>
+                            <children>
+                                <pro2backend translate="title">
+                                    <title>Backend Page Title</title>
+                                </pro2backend>
+                                <aproduct translate="title">
+                                    <title>Manage Aproduct</title>
+                                    <sort_order>0</sort_order>
+                                </aproduct>
+                            </children>
+                        </pro2>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <pro2>
+                    <file>pro2.xml</file>
+                </pro2>
+            </updates>
+        </layout>
+        <events>
+            <!--ASSURANT PRODUCT MODEL CONTROL-->
+            <catalog_product_collection_load_before>
+                <observers>
+                    <exclude_assurant_products>
+                        <type>model</type>
+                        <class>pro2/observer</class>
+                        <method>excludeAssurantProducts</method>
+                        <args></args>
+                    </exclude_assurant_products>
+                </observers>
+            </catalog_product_collection_load_before>
+            <catalog_product_load_after>
+                <observers>
+                    <lock_assurant_attributes>
+                        <type>model</type>
+                        <class>pro2/observer</class>
+                        <method>lockAttributes</method>
+                        <args></args>
+                    </lock_assurant_attributes>
+                </observers>
+            </catalog_product_load_after>
+            <!--LINK RELATION OF ASSURANT PRODUCTS-->
+            <catalog_product_prepare_save>
+                <observers>
+                    <assurant_pro2_catalog_product_prepare_save>
+                        <class>pro2/observer</class>
+                        <method>catalogProductPrepareSave</method>
+                    </assurant_pro2_catalog_product_prepare_save>
+                </observers>
+            </catalog_product_prepare_save>
+            <catalog_model_product_duplicate>
+                <observers>
+                    <assurant_pro2_catalog_product_prepare_save>
+                        <class>pro2/observer</class>
+                        <method>catalogModelProductDuplicate</method>
+                    </assurant_pro2_catalog_product_prepare_save>
+                </observers>
+            </catalog_model_product_duplicate>
+        </events>
+    </adminhtml>    
+    <frontend>
+        <routers>
+            <pro2>
+                <use>standard</use>
+                <args>
+                    <module>Assurant_Pro2</module>
+                    <frontName>pro2</frontName>
+                </args>
+            </pro2>
+        </routers>
+        <layout>
+            <updates>
+                <pro2>
+                    <file>pro2.xml</file>
+                </pro2>
+            </updates>
+        </layout>
+        <events>
+            <sales_quote_item_set_product>
+                  <observers>
+                        <change_assurant_quote_item_name>
+                            <type>singleton</type>
+                            <class>pro2/observer</class>
+                            <method>changeAssurantProductName</method>
+                        </change_assurant_quote_item_name>
+                  </observers>
+            </sales_quote_item_set_product>
+            <checkout_cart_add_product_complete>
+                  <observers>
+                        <assurant_pro2_checkout_cart_add_product_complete>
+                            <type>singleton</type>
+                            <class>pro2/observer</class>
+                            <method>addAssurantPlan</method>
+                        </assurant_pro2_checkout_cart_add_product_complete>
+                  </observers>
+            </checkout_cart_add_product_complete>
+            <checkout_cart_update_item_complete>
+            </checkout_cart_update_item_complete>
+            <checkout_cart_update_items_after>
+                <observers>
+                    <assurant_pro2_checkout_cart_update_items_after>
+                        <type>singleton</type>
+                        <class>pro2/observer</class>
+                        <method>updateAssurantPlanQty</method>
+                    </assurant_pro2_checkout_cart_update_items_after>
+                </observers>
+            </checkout_cart_update_items_after>
+            <sales_quote_remove_item>
+                <observers>
+                    <assurant_pro2_sales_quote_remove_item>
+                        <type>singleton</type>
+                        <class>pro2/observer</class>
+                        <method>removeAssurantProduct</method>
+                    </assurant_pro2_sales_quote_remove_item>
+                </observers>
+            </sales_quote_remove_item>
+            <sales_order_place_after>
+                <observers>
+                    <create_new_insurance>
+                        <type>singleton</type>
+                        <class>pro2/observer</class>
+                        <method>createInsurance</method>
+                    </create_new_insurance>
+                </observers>
+            </sales_order_place_after>
+            <sales_order_place_before>
+                <observers>
+                    <validate_quote_state>
+                        <type>singleton</type>
+                        <class>pro2/observer</class>
+                        <method>validateState</method>
+                    </validate_quote_state>
+                </observers>
+            </sales_order_place_before>
+        </events>
+    </frontend>
+    <crontab>
+        <jobs>            
+            <pro2_assurantsync>
+                <schedule><cron_expr>* */1 * * *</cron_expr></schedule>
+                <run><model>pro2/cron::AssurantIncrementalSync</model></run>
+            </pro2_assurantsync>
+            <!--<pro2_download_content_feed>
+                <schedule><cron_expr>0 3 * * *</cron_expr></schedule>
+                <run><model>pro2/cron::downloadContentFeed</model></run>
+            </pro2_download_content_feed>-->
+        </jobs>
+    </crontab>
+    <default>
+        <aintegration>
+            <setting>
+                <web_service_staging>http://secure-staging.assurantcartprotection.com/api/</web_service_staging>
+                <web_service_production>http://secure.assurantcartprotection.com/api/</web_service_production>
+                <assurant_content_feed_staging>http://assurantproductprotection.com/Systems/Magento/Magento1/XML/Staging/StagingXML.xml</assurant_content_feed_staging>
+                <assurant_content_feed_production>http://assurantproductprotection.com/Systems/Magento/Magento1/XML/Production/ProductionXML.xml</assurant_content_feed_production>
+                <environment>staging</environment>
+                <termscondition>https://secure.assurantcartprotection.com/bundles/sisuinsurance/pdf/us/ACP_TsCs_02182015.pdf</termscondition>
+                <parter_id></parter_id>
+                <shop_id></shop_id>
+                <enabled>1</enabled>
+                <!--hidden attribute-->
+                <hide_assurant_products>1</hide_assurant_products>
+                <match_diff_range>0</match_diff_range>
+                <!--Wizard Default Text-->
+                <!--allowed states-->
+                <allowed_states>MN,CA,MI</allowed_states>
+                <accept_terms_alert><![CDATA[Please check the box that you agree to the Plan Disclosures and Terms and Conditions.]]></accept_terms_alert>
+
+                <!--default cms content for admin wizard-->
+                <assurant_wizard_welcome_title><![CDATA[Assurant Product Protection Setup Wizard - Welcome]]></assurant_wizard_welcome_title>
+                <assurant_wizard_welcome_header><![CDATA[Welcome to Assurant Product Protection. Please enter your unique Authentication Token designated for this single shop. If you do not have this token please call 770-763-1935.]]></assurant_wizard_welcome_header>
+                <assurant_wizard_welcome_instruction><![CDATA[Click the Continue button below to begin downloading the Assurant Product Protection settings that are assigned to your account.]]></assurant_wizard_welcome_instruction>
+                <assurant_wizard_match_title><![CDATA[Assurant Product Protection Setup Wizard - Matching]]></assurant_wizard_match_title>
+                <assurant_wizard_match_header><![CDATA[The Assurant Wizard has successfully retrieved your account settings. Please carefully match your shop categories on the right to the Assurant Product Protection categories on the left. Please call us if you have any questions or need assistance. This step can be revisited anytime.]]></assurant_wizard_match_header>
+                <assurant_wizard_match_note><![CDATA[Note: As the product offering of your shop evolves please call us to have additional Assurant Product Protection Categories added to your account.]]></assurant_wizard_match_note>
+                <assurant_wizard_match_footer><![CDATA[Click the Match Products button to continue after you have made your selections. ]]></assurant_wizard_match_footer>
+                <assurant_wizard_result_title><![CDATA[Assurant Product Protection Setup Wizard – Confirmation]]></assurant_wizard_result_title>
+                <assurant_wizard_result_header><![CDATA[Thank you for matching your shop categories to Assurant Product Protection.
+                    The Assurant Product Protection offering is now enabled and visible to your customers.
+                    You can configure advanced settings <a target="_blank" href="{{setting_url}}">here</a> or also access in the Assurant settings menu on the Magento Admin page.]]></assurant_wizard_result_header>
+                <assurant_wizard_result_instruction><![CDATA[Click the Finish button below to exit the wizard. ]]></assurant_wizard_result_instruction>
+            </setting>
+            <touchpoints>
+                <interstitial>1</interstitial>
+                <product_page>1</product_page>
+                <cart>1</cart>
+                <checkout>1</checkout>
+            </touchpoints>
+        </aintegration>
+    </default>
+</config> 

@@ -1,0 +1,26 @@
+<?php $setting_url = Mage::helper('adminhtml')->getUrl('adminhtml/wizard/endwizard', array('to_setting' => true)); ?>
+<h4>
+    <?php echo str_replace('{{setting_url}}', $setting_url, Mage::getStoreConfig('aintegration/setting/assurant_wizard_result_header'))?>
+</h4>
+<br/>
+<p>
+	<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_result_instruction')?>
+</p>
+
+<div class="wizard-buttons actions">
+    <button onclick="step('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/wizard/configconfirm',  array('back' => true)) ?>')">
+        &larr; Go Back
+    </button>
+    <button onclick="step('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/wizard/endwizard') ?>')">
+        Finish
+    </button>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    $('wizard_process_output').update('');
+    if (wizard_window) {
+        wizard_window.setTitle('<?php echo Mage::getStoreConfig('aintegration/setting/assurant_wizard_result_title')?>');
+    }
+    jQuery('#wizard_action_form').mCustomScrollbar({theme: 'dark'})
+});
+</script>

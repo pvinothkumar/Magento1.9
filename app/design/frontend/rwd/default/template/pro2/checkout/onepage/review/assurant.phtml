@@ -1,0 +1,111 @@
+<?php if ($this->canShowAgreenment()):?>
+<form id="assurant-review">
+    <table class="checkout-protect-block data-table linearize-table checkout-review-table">
+        <colgroup>
+            <col>
+            <col width="1">
+            <col width="1">
+            <col width="1">
+        </colgroup>
+        <tr class="checkout-protect-container">
+            <td class="protect-head" colspan="4">
+                <p><?php echo $this->__('Protect your device') ?></p>
+            </td>
+        </tr>
+        <tr>
+            <td class="checkout-protect-info" colspan="4">
+                <div class="product-protection-price">
+                    <div class="protect-row-left">
+                        <a href="#"> 
+                            <img src="data:image/png;base64,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" alt="Assurant Protection Logo" align="left" style="padding-right:10px;">
+                        </a>
+                        <span class="s-logo-heading"><?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_checkout_title'); ?></span>
+                        <div style="display:none;" class="cssload-container"><div class="cssload-zenith"></div></div>
+                    </div>
+                </div>
+                <?php foreach($this->getAvaialbleProducts() as $product):?>
+                    <?php if ($assurantItem = $this->getAssurantItem($product)): ?>
+                        <div class="assurant-plans">
+                            <h5 style="padding-left: 30px; margin-bottom: 0;"><?php echo $product->getName()?></h5>
+                            <?php foreach ($this->getProductPlans($assurantItem) as $plan): ?>
+                                <?php $id_name = "assurant-radio-{$product->getQuoteItemId()}-{$plan->id}";?>
+                                <div class="protect-checkbox">
+                                    <div class="protect-row-left">
+                                        <div class="_s-cont">
+                                            <input id="<?php echo $id_name?>" type="radio" data-assurant-stamp="<?php echo $product->getAssurantStamp()?>" <?php echo ($product->getAssurantItemOptionId() == $plan->id ? "checked" : '')?> class="plan-checkbox" name="assurant_product<?php echo $product->getQuoteItemId()?>" value="<?php echo "{$product->getId()}:{$assurantItem->getId()}:{$plan->id}" ?>">
+                                            <label for="<?php echo $id_name?>"><span></span></label>
+                                            <div class="protect-pricing"><span><?php echo Mage::helper('checkout')->formatPrice($plan->price) ?> <?php echo $this->getPlanName($plan)?></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach;?>
+                        </div>
+                    <?php endif;?>
+                <?php endforeach;?>
+            </td>
+        </tr>
+        <tr class="border-bottom">
+            <td colspan="4">
+                <div class="protect-checkbox"  id="assurant-termscondition" style="display:none;">
+                    <div class="protect-row-left">
+                        <div class="_s-cont">
+                            <input type="checkbox" class="_s-checkbox" name="_s-terms">
+                            <label class="_s-label">
+                                I have read and agree to the <a class="cart-benefits-basic-fancybox" href="#plan-disclosures-content-popup">Plan Disclosures</a> and
+                                <a href="<?php echo Mage::getStoreConfig('aintegration/setting/termscondition')?>" target="_blank">Terms & Conditions</a>.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="protect-buttons">
+                    <div class="buttons-left">
+                        <button type="button" onclick="dataToggle(this);" class="s-benefit"><?php echo $this->__('Benefits') ?></button>
+                    </div>
+                </div>
+                <div class="protect-information" style="display:none;">
+                    <?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_checkout_coverage'); ?>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    load_assurant_aggreement = function() {
+        loaded = false;
+        jQuery('.plan-checkbox').each(function() {
+            if (jQuery(this).prop('checked')) {
+                loaded = true;
+                jQuery('#assurant-termscondition').show();
+            }
+        });
+        if (!loaded) jQuery('#assurant-termscondition').hide();
+    }
+    load_plan_disclosures();
+    load_assurant_aggreement();
+    load_basic_benefits();
+    jQuery(document).ready(function(){
+        jQuery('.plan-checkbox').click(function() {
+            try {
+                jQuery.ajax({
+                    url: '<?php echo $this->getUrl('pro2/submit/reviewadd')?>',
+                    dataType: 'json',
+                    type : 'post',
+                    data: 'assurant_product='+jQuery(this).val()+'&assurant_stamp='+jQuery(this).attr('data-assurant-stamp'),
+                    beforeSend: function() { jQuery('.cssload-container').show(); },
+                    complete: function(response){
+                        payment.save();
+                    }
+            });
+            } catch (e) {
+                console.log(e);
+            }
+        });
+    });
+//]]>
+</script>
+<?php endif;?>

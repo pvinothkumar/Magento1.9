@@ -1,0 +1,122 @@
+<?php 
+	$interstitial = Mage::getStoreConfig('aintegration/touchpoints/interstitial', Mage::app()->getStore());
+	$pdpEnabled = Mage::getStoreConfig('aintegration/touchpoints/product_page', Mage::app()->getStore());
+?>
+
+<?php if(count($this->getItemCollection()->getItems())): ?>
+
+<?php
+	$_product = $this->getProduct(); 
+    $firstItem = $this->getItemCollection()->getFirstItem();
+    $plans = $this->getPlans($firstItem); 
+    $default_option_id = $firstItem->getDefaultOptionId();
+
+?>
+
+<?php if ($pdpEnabled):?>
+    <div class="protect_your_investment">
+        <h3><?php echo $this->__('Protect your investment') ?></h3>
+        <div class="protect-info">
+        <?php foreach($this->getItemCollection()->getItems() as $protectproduct):?>
+            <?php foreach($this->getPlans($protectproduct) as $p): ?>
+                <div class="protect-checkbox">
+                    <input type="checkbox" class="assurant-checkbox" id="assurant-checkbox-<?php echo $p->id?>" value="<?php echo "{$firstItem->getId()}:{$p->id}" ?>" name="assurant_products[]" >
+                    <label for="assurant-checkbox-<?php echo $p->id?>"><span></span></label>
+                </div>
+                <div class="protect-pricing"><?php echo Mage::app()->getStore()->formatPrice($p->price); ?><span class="title"><?php echo $this->getPlanName($p) ?></span></div>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+        </div>
+        <div class="protect-link">
+            <a class="plan-details-fancybox fancybox" href="#plan-benefits-basic-content"><?php echo $this->__('Benefits') ?></a>
+            <a class="cart-benefits-basic-fancybox fancybox" href="#plan-disclosures-content-popup"><?php echo $this->__('Plan Disclosures') ?></a>
+            <a href="<?php echo Mage::getStoreConfig('aintegration/setting/termscondition')?>" target="_blank"><?php echo $this->__('Terms &amp; Conditions') ?></a>
+        </div>
+    </div>
+<?php endif;?>
+
+<!-- POPUPS -->
+<!-- More pricing options -->
+<?php if ($interstitial):?>
+<div id="benefits-popup" class="protect-popup" style="display: none;">
+	<header class="protect-popup-header"><?php echo $this->__('Assurant Product Protection Benefits') ?></header>
+	<section>
+        <div class="plan-logo">
+            <img src="<?php echo $this->getSkinUrl('pro2/images/xprotect_logo.png') ?>" alt="" />
+        </div>
+        <div id="protect-product-radio" class="plan-content">
+            <h1>Assurant Product Protection Plan Options:</h1>
+            <?php foreach($this->getItemCollection()->getItems() as $protectproduct): ?>
+                <?php foreach ($this->getPlans($protectproduct) as $p): ?>
+                    <div class="protect-info">
+                        <div class="protect-radio">
+                            <input type="radio" class="assurant-radio" id="assurant-radio-<?php echo $p->id ?>" value="<?php echo "{$protectproduct->getId()}:{$p->id}" ?>" name="assurant_products[]">
+                            <label for="assurant-radio-<?php echo $p->id ?>"><span></span></label>
+                        </div>
+                        <div class="protect-pricing"><?php echo Mage::app()->getStore()->formatPrice($p->price); ?><span class="title"><?php echo $this->getPlanName($p) ?></span></div>
+                        <div class="plan-description" style="display:none">
+                            <?php echo $this->parsePlanOptions($p)?>
+                        </div>
+                    </div>
+                <?php endforeach;?>
+            <?php endforeach; ?>					
+            <?php echo Mage::getStoreConfig('aintegration/setting/assurant_content_plan_basic');?>
+            <div id="plan-description" style="display: none"></div>
+        </div>
+        <div class="protect-link popup-links">
+            <a href="<?php echo Mage::getStoreConfig('aintegration/setting/termscondition')?>" target="_blank"><?php echo $this->__('Terms &amp; Conditions') ?></a>
+            <a class="plan-disclosures-fancybox fancybox"><?php echo $this->__('Plan Disclosures') ?></a>
+            <?php echo Mage::getStoreConfig('aintegration/setting/faq')?>
+        </div>
+        <div class="btn-float-right">
+            <div style="display:none;" class="cssload-container"><div class="cssload-zenith"></div></div>
+            <a class="button protect-button" id="protect-add-coverage-selected"><span><?php echo $this->__('Add Coverage') ?></span></a>
+            <a class="button protect-button nothanks-button" href="<?php echo $this->getUrl('checkout/cart')?>" ><span><?php echo $this->__('No Thanks') ?></span></a>
+        </div>
+	</section>
+</div>
+<?php endif;?>
+
+<input type="hidden" name="assurant_product" id="assurant-products-field" value="" />
+<?php /* this assurant_stamp helps identify multiple line item of a same product */?>
+<input type="hidden" name="assurant_stamp" value="<?php echo time()?>" />
+
+<script type="text/javascript">
+//<![CDATA[
+    assurantcheck = function () {
+        currentCB = this;
+        if($(this).checked){
+            $$('.protect_your_investment .assurant-checkbox').each(function(elm) {
+                if (elm != currentCB) elm.checked = false;
+            })
+            $('assurant-products-field').value = this.value;
+        }else{
+            $('assurant-products-field').value = "";
+        }
+    }
+    <?php foreach($this->getItemCollection()->getItems() as $protectproduct): ?>
+        <?php foreach($this->getPlans($protectproduct) as $p):?>
+        if ($('assurant-checkbox-<?php echo $p->id?>')) {
+            $('assurant-checkbox-<?php echo $p->id?>').observe('click', assurantcheck);
+        }
+    	<?php endforeach; ?>
+	<?php endforeach; ?>
+
+    $$('.assurant-radio').each(function(elem){
+        Event.observe(elem, 'click', addAssurantToProduct)
+    });   
+
+    function addAssurantToProduct(){
+        var radios = $$('.assurant-radio');
+        $('assurant-products-field').value = '';
+        for(var i=0; i<radios.length; i++){
+            if(radios[i].checked && $('assurant-products-field')){
+                $('assurant-products-field').value = radios[i].value; 
+                $('plan-description').innerHTML = $(radios[i]).parentElement.parentElement.down('.plan-description').innerHTML; 
+            }
+        }
+    }  
+//]]>
+</script>
+
+<?php endif; ?>
